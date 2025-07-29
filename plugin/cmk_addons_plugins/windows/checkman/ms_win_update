@@ -1,0 +1,17 @@
+title: Microsoft Windows: Update
+agents: windows
+catalog: os/misc
+license: GPLv2
+distribution: Christopher Pommer
+description:
+ This check monitors the pending Windows Updates from a Windows host.
+
+ The service is in state {OK} if there are no pending updates.
+ You can configure threshold levels for pending updates and you can define
+ update name patterns to be ignored.
+
+ You have to deploy the agent script {ms_win_update.ps1} to the host.
+
+discovery:
+ A service named {Windows update} is created for the pending Windows updates
+ on each host on which you have deployed the agent script.
