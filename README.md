@@ -30,6 +30,6 @@ It counts all Windoes updates which are not ignored.
 
 #### Checkmk Parameters
 
-1. **Pending Update Count**: Set upper thresholds for the count of pending Windows updates. All pending updates that have not been ignored are counted. To ignore the pending update count, select "No levels".
+1. **Pending Update Count**: Set upper thresholds for the count of pending Windows updates. All pending updates that have not been ignored in "Ignored Update Patterns" are counted. To ignore the pending update count completely, select "No levels". The default values are 1 (WARN) and 5 (CRIT). 
 2. **Ignored Update Patterns**: Define a list of update names to be ignored for the pending update thresholds. The text entered here is handled as a regular expression pattern.
 
