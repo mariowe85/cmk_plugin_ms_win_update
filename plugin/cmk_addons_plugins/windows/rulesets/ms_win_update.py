@@ -55,8 +55,10 @@ def _parameter_form_ms_win_update() -> Dictionary:
                 parameter_form=SimpleLevels[int](
                     title=Title("Pending Update Count"),
                     help_text=Help(
-                        "Set upper level thresholds for the count of pending Windows updates. "
-                        "All pending updates that have not been ignored are counted."
+                        "Set upper thresholds for the count of pending Windows updates. "
+                        'All pending updates that have not been ignored in "Ignored Update '
+                        'Patterns" are counted. To ignore the pending update count completely, '
+                        'select "No levels". The default values are 1 (WARN) and 5 (CRIT).'
                     ),
                     form_spec_template=Integer(),
                     level_direction=LevelDirection.UPPER,
