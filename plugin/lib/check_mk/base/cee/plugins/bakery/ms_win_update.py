@@ -35,22 +35,21 @@ from .bakery_api.v1 import (
 
 
 class WinUpdateConfig(TypedDict, total=False):
-    deployment: Optional[Tuple[str, Optional[Dict[str, float]]]]
+    deployment: Tuple[str, Optional[Dict[str, float]]]
 
 
 def get_ms_win_update_files(conf: WinUpdateConfig) -> FileGenerator:
-    deployment = conf.get("deployment")
+    deployment = conf["deployment"]
 
-    if not deployment or deployment[0] == "deploy_no":
+    if deployment[0] == "deploy_no":
         return
 
     interval = deployment[1].get("interval")
-    interval = int(interval) if interval else None
 
     yield Plugin(
         base_os=OS.WINDOWS,
         source=Path("ms_win_update.ps1"),
-        interval=interval,
+        interval=int(interval) if interval else None,
     )
 
 
