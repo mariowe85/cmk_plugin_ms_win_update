@@ -56,10 +56,7 @@ def _valuespec_agent_config_ms_win_update():
                         CascadingSingleChoiceElement(
                             name="deploy_no",
                             title=Title("Do not deploy the plugin"),
-                            parameter_form=FixedValue(
-                                title=Title("Do not deploy the plugin"),
-                                value=True,
-                            ),
+                            parameter_form=FixedValue(value=None),
                         ),
                         CascadingSingleChoiceElement(
                             name="deploy_yes",
