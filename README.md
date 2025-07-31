@@ -19,7 +19,7 @@ See [Check Details](#check-details) for more information.
 #### Description
 
 This check monitors the count of pending Windows updates.
-It counts all Windoes updates which are not ignored.
+It counts all Windows updates which are not ignored.
 
 #### Checkmk Service Examples
 
