@@ -32,7 +32,7 @@
 import re
 from collections.abc import Mapping
 from dataclasses import dataclass
-from typing import Any, List, Optional
+from typing import Any
 
 from cmk.agent_based.v2 import (
     AgentSection,
@@ -53,7 +53,7 @@ class WindowsUpdate:
     update_title: str
 
 
-Section = Optional[List[WindowsUpdate]]
+Section = list[WindowsUpdate]
 
 
 def parse_ms_win_update(string_table: StringTable) -> Section:
@@ -136,7 +136,7 @@ def check_ms_win_update(params: Mapping[str, Any], section: Section) -> CheckRes
 
     yield Result(
         state=State.OK,
-        notice=".",
+        notice=" ",
         details=f"\n{result_details}",
     )
 

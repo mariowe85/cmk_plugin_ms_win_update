@@ -24,7 +24,7 @@
 
 
 from pathlib import Path
-from typing import Dict, Optional, Tuple, TypedDict
+from typing import TypedDict
 
 from .bakery_api.v1 import (
     FileGenerator,
@@ -35,7 +35,7 @@ from .bakery_api.v1 import (
 
 
 class WinUpdateConfig(TypedDict, total=False):
-    deployment: Tuple[str, Optional[Dict[str, float]]]
+    deployment: tuple[str, dict[str, float] | None]
 
 
 def get_ms_win_update_files(conf: WinUpdateConfig) -> FileGenerator:
