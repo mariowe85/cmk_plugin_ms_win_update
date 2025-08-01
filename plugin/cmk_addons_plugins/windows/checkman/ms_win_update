@@ -4,14 +4,20 @@ catalog: os/misc
 license: GPLv2
 distribution: Christopher Pommer
 description:
- This check monitors the pending Windows Updates from a Windows host.
+ This check monitors pending Windows updates on Windows systems. It processes
+ data collected by the {ms_win_update.ps1} agent plugin.
 
- The service is in state {OK} if there are no pending updates.
- You can configure threshold levels for pending updates and you can define
- update name patterns to be ignored.
+ The check evaluates the number of pending updates and can be configured with
+ warning and critical thresholds. By default, 1 pending update triggers a
+ {WARN} state and 5 pending updates trigger a {CRIT} state.
 
- You have to deploy the agent script {ms_win_update.ps1} to the host.
+ Updates can be filtered using regular expression patterns to exclude specific
+ updates from the pending count. Ignored updates are still reported in the
+ service details but do not affect the service state.
+
+ You must deploy the {ms_win_update.ps1} agent plugin to Windows hosts
+ to collect update information.
 
 discovery:
- A service named {Windows update} is created for the pending Windows updates
- on each host on which you have deployed the agent script.
+ One service named {Windows update} is created on each Windows host where
+ the agent plugin is deployed.
