@@ -7,17 +7,30 @@ description:
  This check monitors pending Windows updates on Windows systems. It processes
  data collected by the {ms_win_update.ps1} agent plugin.
 
- The check evaluates the number of pending updates and can be configured with
- warning and critical thresholds. By default, 1 pending update triggers a
- {WARN} state and 5 pending updates trigger a {CRIT} state.
+ The check evaluates the number of pending updates that require installation
+ and can be configured with warning and critical thresholds for alerting.
+
+ Default mapping:
+
+ {OK}: No pending updates
+
+ {WARN}: 1 or more pending updates
+
+ {CRIT}: 5 or more pending updates
 
  Updates can be filtered using regular expression patterns to exclude specific
- updates from the pending count. Ignored updates are still reported in the
- service details but do not affect the service state.
+ updates from the pending count. This is useful for ignoring updates that
+ should not trigger alerts, such as Degender definition updates.
+ Ignored updates are still reported in the service details but do
+ not affect the service state or threshold calculations.
+
+ The service displays separate counts for pending and ignored updates, with
+ detailed lists of all update titles in the service details for administrative
+ review.
 
  You must deploy the {ms_win_update.ps1} agent plugin to Windows hosts
  to collect update information.
 
 discovery:
- One service named {Windows update} is created on each Windows host where
- the agent plugin is deployed.
+ One service named "Windows update" is created on each Windows host where
+ the agent plugin is deployed and update information is available.

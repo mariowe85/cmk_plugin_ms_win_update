@@ -17,13 +17,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-
 ####################################################################################################
-# Checkmk check plugin for monitoring the Windows Updates on a Windows host.
-# This is part of the Microsoft Windows Update plugin (ms_win_update), which uses data generated
-# from the Windows update script (ms_win_update.ps1).
+# CHECKMK CHECK PLUG-IN: Microsoft Windows Update
+#
+# This plug-in generates the Checkmk services and determines their status.
+# This file is part of the Microsoft Windows Update agent plug-in (ms_win_update.ps1).
+####################################################################################################
 
-# Example data from agent plugin:
+# Example data from agent plug-in:
 # <<<ms_win_update>>>
 # SQL Server 2019 RTM Cumulative Update (CU) 30 KB5049235
 # Security Intelligence Update for Microsoft Defender Antivirus - KB2267602 (Version 1.421.1334.0)

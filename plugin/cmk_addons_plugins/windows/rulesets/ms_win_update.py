@@ -17,11 +17,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-
 ####################################################################################################
-# Checkmk ruleset to set the thresholds and excludes of Windows updates.
-# This ruleset is part of the Microsoft Windows Update plugin (ms_win_update).
-
+# CHECKMK RULESET: Microsoft Windows Update (check plug-in)
+#
+# This file defines the check plug-in parameters for the "Microsoft Windows Update" check.
+# The check is part of the Microsoft Windows Update agent plug-in.
+####################################################################################################
 
 from cmk.rulesets.v1 import Help, Title
 from cmk.rulesets.v1.form_specs import (

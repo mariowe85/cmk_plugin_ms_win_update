@@ -17,11 +17,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-
 ####################################################################################################
-# Bakery plugin for the deployment of the Windows update script.
-# This is part of the Microsoft Windows Update plugin (ms_win_update).
-
+# CHECKMK BAKERY PLUG-IN: Microsoft Windows Update
+#
+# This plug-in packages the agent script and files for deployment via the Checkmk agent bakery.
+# This file is part of the Microsoft Windows Update agent plug-in (ms_win_update.ps1).
+####################################################################################################
 
 from pathlib import Path
 from typing import TypedDict

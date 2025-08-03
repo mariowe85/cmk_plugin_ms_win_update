@@ -14,11 +14,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-
 ####################################################################################################
-# Checkmk agent script for monitoring the pending Windows updates.
-# This script is part of the Microsoft Windows Update plugin (ms_win_update).
-
+# CHECKMK AGENT PLUG-IN SCRIPT: Microsoft Windows Update
+#
+# This script generates the Checkmk agent section for pending Windows updates.
+# This file is part of the Microsoft Windows Update agent plug-in.
+####################################################################################################
 
 # Get pending updates
 $UpdateSession = New-Object -ComObject Microsoft.Update.Session

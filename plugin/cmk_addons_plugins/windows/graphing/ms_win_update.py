@@ -17,11 +17,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-
 ####################################################################################################
-# Checkmk graph parameters for Windows updates.
-# These graph parameters are part of the Microsoft Windows Update plugin (ms_win_update).
-
+# CHECKMK METRICS & GRAPHS: Microsoft Windows Update
+#
+# This file defines the Checkmk metrics and graphs for the check plug-ins.
+# It is part of the Microsoft Windows Update agent plug-in.
+####################################################################################################
 
 from cmk.graphing.v1 import Title
 from cmk.graphing.v1.graphs import Graph
@@ -37,6 +38,10 @@ from cmk.graphing.v1.metrics import (
 from cmk.graphing.v1.perfometers import Closed, Open, FocusRange, Perfometer
 
 UNIT_COUNTER = Unit(DecimalNotation(""), StrictPrecision(0))
+
+# --------------------------------------------------------------------------------------------------
+# Microsoft Windows Update
+# --------------------------------------------------------------------------------------------------
 
 metric_ms_win_updates_pending = Metric(
     name="ms_win_updates_pending",

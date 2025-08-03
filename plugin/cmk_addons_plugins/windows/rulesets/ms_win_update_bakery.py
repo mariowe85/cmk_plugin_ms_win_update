@@ -17,11 +17,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-
 ####################################################################################################
-# Checkmk ruleset for the deployment of the Windows update script.
-# This ruleset is part of the Microsoft Windows Updates plugin (ms_win_update).
-
+# CHECKMK RULESET: Microsoft Windows Update (bakery plug-in)
+#
+# This file defines the deployment parameters for the ms_win_update.ps1 agent plug-in.
+####################################################################################################
 
 from cmk.rulesets.v1 import Title, Help
 from cmk.rulesets.v1.form_specs import (
