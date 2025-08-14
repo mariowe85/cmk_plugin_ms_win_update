@@ -1,36 +1,140 @@
-title: Microsoft Windows: Update
+title: Microsoft Windows: Update with SCCM Support
 agents: windows
 catalog: os/misc
 license: GPLv2
-distribution: Christopher Pommer
+distribution: Christopher Pommer & Mario Fellner
 description:
- This check monitors pending Windows updates on Windows systems. It processes
- data collected by the {ms_win_update.ps1} agent plugin.
+ This enhanced check monitors pending Windows updates from both Windows Update 
+ and SCCM (System Center Configuration Manager) sources on Windows systems. 
+ It processes data collected by the {ms_win_update_v2.ps1} agent plugin.
 
- The check evaluates the number of pending updates that require installation
- and can be configured with warning and critical thresholds for alerting.
+ The check evaluates pending updates from multiple sources:
 
- Default mapping:
+ - **Windows Update**: Standard Microsoft Windows Update service
+ - **SCCM**: System Center Configuration Manager deployed updates
 
- {OK}: No pending updates
+ ## Features
 
- {WARN}: 1 or more pending updates
+ ### Multi-Source Update Monitoring
+ 
+ The plugin can monitor updates from both Windows Update and SCCM simultaneously,
+ providing separate metrics and thresholds for each source. This allows for 
+ fine-grained control in mixed environments.
 
- {CRIT}: 5 or more pending updates
+ ### SCCM Client Monitoring
+ 
+ In addition to update monitoring, the check monitors the SCCM client service
+ status, version information, and last policy update time to ensure proper
+ SCCM functionality.
 
+ ### Enhanced Update Information
+ 
+ For each pending update, the check provides detailed information including:
+ 
+ - Knowledge Base (KB) article numbers
+ - Security severity levels (Critical, Important, etc.)
+ - Update categories and classifications
+ - Download size and status
+ - Reboot requirements
+ - SCCM-specific information (evaluation state, deadlines, compliance)
+
+ ### Flexible Alerting
+ 
+ Multiple threshold options are available:
+ 
+ - **Total Update Count**: Alert based on total pending updates from all sources
+ - **Windows Update Count**: Separate thresholds for Windows Update only
+ - **SCCM Update Count**: Separate thresholds for SCCM updates only
+ - **Critical Update Alert**: Special alerting for security-critical updates
+
+ ## Default Mapping
+
+ {OK}: No pending updates from any source
+
+ {WARN}: 1 or more total pending updates (default), or SCCM client issues
+
+ {CRIT}: 5 or more total pending updates (default)
+
+ ## Configuration Options
+
+ ### Update Source Control
+ 
+ The agent plugin can be configured to monitor:
+ - Both Windows Update and SCCM (default)
+ - Windows Update only
+ - SCCM only
+
+ ### Pattern-Based Filtering
+ 
  Updates can be filtered using regular expression patterns to exclude specific
- updates from the pending count. This is useful for ignoring updates that
- should not trigger alerts, such as Degender definition updates.
- Ignored updates are still reported in the service details but do
- not affect the service state or threshold calculations.
+ updates from threshold calculations. Common use cases include:
+ 
+ - Ignoring Defender definition updates: `Security Intelligence Update`
+ - Excluding specific KB articles: `KB1234567`
+ - Filtering by severity: `Definition Update`
 
- The service displays separate counts for pending and ignored updates, with
- detailed lists of all update titles in the service details for administrative
- review.
+ Filtered updates are still reported in service details but do not affect
+ service state calculations.
 
- You must deploy the {ms_win_update.ps1} agent plugin to Windows hosts
- to collect update information.
+ ### SCCM-Specific Features
+ 
+ When SCCM monitoring is enabled, the check provides:
+ 
+ - SCCM client service status monitoring
+ - Client version tracking
+ - Policy update timestamp monitoring
+ - SCCM update evaluation states
+ - Deployment deadline tracking
+ - Compliance state reporting
+
+ ## Metrics
+
+ The check provides the following performance metrics:
+
+ - `ms_win_updates_pending`: Total pending updates from all sources
+ - `ms_win_updates_windows_pending`: Pending Windows Update updates
+ - `ms_win_updates_sccm_pending`: Pending SCCM updates  
+ - `ms_win_updates_ignored`: Updates ignored by filter patterns
+
+ ## Requirements
+
+ ### Windows Update Monitoring
+ 
+ - Windows Update service must be accessible
+ - WMI access to Microsoft.Update.Session COM objects
+
+ ### SCCM Monitoring
+ 
+ - SCCM client installed and running
+ - WMI access to ROOT\ccm namespace
+ - CcmExec service running
+ - Proper SCCM client configuration
+
+ ## Deployment
+
+ You must deploy the {ms_win_update_v2.ps1} agent plugin to Windows hosts
+ to collect update information. The plugin supports PowerShell parameters
+ for runtime configuration:
+
+ - `-EnableSCCM`: Enable/disable SCCM monitoring (default: true)
+ - `-EnableWindowsUpdate`: Enable/disable Windows Update monitoring (default: true)  
+ - `-Debug`: Enable debug output for troubleshooting
 
 discovery:
  One service named "Windows update" is created on each Windows host where
- the agent plugin is deployed and update information is available.
+ the enhanced agent plugin is deployed and update information is available
+ from at least one source (Windows Update or SCCM).
+
+examples:
+ Example service output with multiple sources:
+ 
+ Windows update OK - Total pending: 3, Windows Update pending: 2, SCCM pending: 1
+ 
+ SCCM client running (v5.00.9012.1000), last policy update: 20250101120000.000000+000
+ 
+ Windows Update - Pending:
+   • Security Update for Windows 10 (KB5012345) - Severity: Important, Size: 45.2MB, Reboot required
+   • Cumulative Update for .NET Framework (KB5023456) - Size: 12.8MB
+ 
+ SCCM - Pending:
+   • Office 365 Security Update (KB5034567) - Deadline: 20250115000000.000000+000, Compliance: 2
